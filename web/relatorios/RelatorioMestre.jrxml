@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Relatório Mestre" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="8e2038ca-94cd-459c-a240-9fec14710ae3">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<queryString>
+		<![CDATA[SELECT
+     pedidocliente."clienteid" AS pedidocliente_clienteid,
+     cliente."nome" AS cliente_nome
+FROM
+     "public"."cliente" cliente INNER JOIN "public"."pedidocliente" pedidocliente ON cliente."id" = pedidocliente."clienteid"]]>
+	</queryString>
+	<field name="pedidocliente_clienteid" class="java.lang.Integer"/>
+	<field name="cliente_nome" class="java.lang.String"/>
+	<group name="Pedido">
+		<groupExpression><![CDATA[$F{pedidocliente_clienteid}]]></groupExpression>
+	</group>
+	<pageHeader>
+		<band height="33" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="555" height="27" uuid="7d1dbd4e-8808-486d-bf8b-c3f2e3509fb2"/>
+				<textElement textAlignment="Center">
+					<font size="18" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Relatório de Pedidos por Cliente]]></text>
+			</staticText>
+			<line>
+				<reportElement x="0" y="27" width="555" height="1" uuid="9a4dbd60-f38a-4a09-a0e2-ac0ffe4c84cf"/>
+			</line>
+		</band>
+	</pageHeader>
+	<detail>
+		<band height="83" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="20" width="100" height="20" uuid="67e9e3ff-ce0b-4c94-bc2f-79b63846173a"/>
+				<textFieldExpression><![CDATA[$F{pedidocliente_clienteid}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="100" y="20" width="226" height="20" uuid="6ccb0569-04ba-4297-a022-bc2031c964f6"/>
+				<textFieldExpression><![CDATA[$F{cliente_nome}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="0" width="100" height="20" uuid="782a0624-9de0-4d22-842d-efb1a3a24e42"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Cliente ID]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="100" y="0" width="226" height="20" uuid="f0e681c1-cb0e-49cf-9b94-8843cbb90b57"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nome]]></text>
+			</staticText>
+			<subreport>
+				<reportElement x="0" y="40" width="200" height="43" uuid="e8644744-a930-43f7-af3f-e33348bf6aef"/>
+				<subreportParameter name="PAR_PEDIDO">
+					<subreportParameterExpression><![CDATA[$F{pedidocliente_clienteid}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA["C:\\Users\\Guilherme\\Desktop\\Relatórios\\Relatório de Pedidos.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="34" splitType="Stretch">
+			<textField>
+				<reportElement x="206" y="14" width="80" height="20" uuid="b199642d-285d-473e-b654-1a84ac4c881a"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA["Página "+$V{PAGE_NUMBER}+" de"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="286" y="14" width="40" height="20" uuid="f65c21d8-32a6-4cba-8cb1-326cb53f92d3"/>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy h.mm a">
+				<reportElement x="455" y="14" width="100" height="20" uuid="4009f942-40b7-4de0-bfed-edfab24ed2e2"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+</jasperReport>

@@ -1,0 +1,102 @@
+<ui:composition template="/templates/mastertemplate.xhtml" 
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui">
+
+    <ui:define name="corpo">
+        <p:panel style="margin: 0 auto; width: 90%"
+                 header="Cadastro de Funcionário">
+            <h:form>
+                <p:outputLabel value="Nome" 
+                               for="nome"/>
+                <br />
+                <p:inputText id="nome" 
+                             value="#{funcionarioBean.funcionario.nome}"
+                             required="true" requiredMessage="Preencha o campo Nome!"/>
+
+                <p:outputLabel value="CPF" 
+                               for="cpf"/>
+                <br />
+                <p:inputText id="cpf" 
+                             value="#{funcionarioBean.funcionario.cpf}"
+                               required="true" requiredMessage="Preencha o campo CPF!"/>
+
+                <p:outputLabel value="Email" 
+                               for="email"/>
+                <br />
+                <p:inputText id="email" 
+                             value="#{funcionarioBean.funcionario.email}"/>
+
+                <p:outputLabel value="Endereço" 
+                               for="end"/>
+                <br />
+                <p:inputText id="end" 
+                             value="#{funcionarioBean.funcionario.endereco}"/>
+                <p:outputLabel value="Usuário do Sistema  " 
+                               for="usuario"/>
+                <br />
+                <p:selectBooleanButton id="usuario" value="#{funcionarioBean.funcionario.usuario}" onLabel="Sim" offLabel="Não" onIcon="ui-icon-check" offIcon="ui-icon-close">
+                    <f:ajax render="mostrar" />
+                </p:selectBooleanButton>
+                
+                <br />
+                <h:panelGroup id="mostrar">
+                    <p:panel header="Informações para logar no sistema" rendered="#{funcionarioBean.funcionario.usuario}">
+                        <p:outputLabel value="Login" for="login" />
+                        <br />
+                        <p:inputText id="login" value="#{funcionarioBean.funcionario.login}"/>
+
+                        <p:outputLabel value="Senha" for="senha"/>
+                        <br />
+                        <p:inputText id="senha" value="#{funcionarioBean.funcionario.senha}"/>                      
+                    </p:panel>                     
+                </h:panelGroup>              
+
+                <br/><br/>
+                <p:commandButton value="Salvar" 
+                                 actionListener="#{funcionarioBean.salvar()}"
+                                 update="@all"/>               
+            </h:form>
+        </p:panel> 
+        <br />
+        <p:separator />
+        <br />
+        <p:panel style="margin: 0 auto; width: 90%; align-self: center"
+                 header="Todos os Funcionários">
+            <p:dataTable value="#{funcionarioBean.funcionarios}" 
+                         id="listaFuncionarios" 
+                         var="c"
+                         emptyMessage="Sem Funcionários"
+                         rows="5"
+                         paginator="true"
+                         paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                         rowsPerPageTemplate="5,10,15">                         
+
+                <p:column headerText="Id">
+                    <h:outputText value="#{c.funcionarioId}"/>
+                </p:column>
+
+                <p:column headerText="Nome">
+                    <h:outputText value="#{c.nome}"/>
+                </p:column>                   
+
+                <p:column headerText="CPF">
+                    <h:outputText value="#{c.cpf}"/>
+                </p:column>                  
+
+                <p:column headerText="Email">
+                    <h:outputText value="#{c.email}"/>
+                </p:column>                
+
+                <p:column style="width: 25px">
+                    <h:form>
+                        <p:commandButton icon="ui-icon-pencil"
+                                         title="Editar" ajax="false"
+                                         actionListener="#{funcionarioBean.alterar(c)}"/>                        
+                    </h:form>                        
+                </p:column>                   
+            </p:dataTable> 
+        </p:panel >
+    </ui:define>
+</ui:composition>

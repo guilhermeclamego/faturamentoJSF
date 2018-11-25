@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Relatório de Cliente por Cidade" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="128658b2-85a3-4c17-84f5-0ecf4df8c7f6">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<queryString>
+		<![CDATA[SELECT
+     municipios."codigo_ibge" AS municipios_codigo_ibge,
+     municipios."municipio" AS municipios_municipio,
+     municipios."uf" AS municipios_uf,
+     cliente."id" AS cliente_id,
+     cliente."nome" AS cliente_nome,
+     cliente."cpf" AS cliente_cpf,
+     cliente."email" AS cliente_email,
+     cliente."telefone" AS cliente_telefone
+FROM
+     "public"."municipios" municipios INNER JOIN "public"."cliente" cliente ON municipios."codigo_ibge" = cliente."municipioid"
+ORDER BY 1]]>
+	</queryString>
+	<field name="municipios_codigo_ibge" class="java.lang.Integer"/>
+	<field name="municipios_municipio" class="java.lang.String"/>
+	<field name="municipios_uf" class="java.lang.String"/>
+	<field name="cliente_id" class="java.lang.Integer"/>
+	<field name="cliente_nome" class="java.lang.String"/>
+	<field name="cliente_cpf" class="java.lang.String"/>
+	<field name="cliente_email" class="java.lang.String"/>
+	<field name="cliente_telefone" class="java.lang.String"/>
+	<group name="Cidade">
+		<groupExpression><![CDATA[$F{municipios_codigo_ibge}]]></groupExpression>
+		<groupHeader>
+			<band height="72">
+				<textField>
+					<reportElement x="0" y="30" width="93" height="20" forecolor="#3300FF" uuid="49993136-7539-4de1-b784-15cd26a83eb6"/>
+					<textElement>
+						<font size="11" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{municipios_codigo_ibge}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="93" y="30" width="462" height="20" forecolor="#3300FF" uuid="530f65c7-5d01-44fb-af39-5e5c07168640"/>
+					<textElement>
+						<font size="11" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{municipios_municipio}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="93" y="10" width="462" height="20" forecolor="#000000" uuid="bcce2022-a891-402a-8dd9-325f2c75ae26"/>
+					<textElement>
+						<font size="12" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Cidade]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="0" y="10" width="93" height="20" forecolor="#000000" uuid="98306c95-c6a3-47ef-b7e1-0560e7ef7e2f"/>
+					<textElement>
+						<font size="12" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Código IBGE]]></text>
+				</staticText>
+				<line>
+					<reportElement x="0" y="49" width="555" height="1" uuid="9183a938-e91f-469c-b7f9-1086977be868"/>
+				</line>
+				<staticText>
+					<reportElement x="0" y="50" width="68" height="20" uuid="827c5d3b-a843-4f2d-aeae-3b21c6444d50"/>
+					<textElement>
+						<font size="11" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Cliente ID]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="68" y="50" width="160" height="20" uuid="b63472b1-47e2-4489-b929-d60cfcf6cbf4"/>
+					<textElement>
+						<font size="11" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Cliente]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="228" y="50" width="100" height="20" uuid="9a67d858-b61a-4d75-a6e4-42698768d3e7"/>
+					<textElement>
+						<font size="11" isBold="true"/>
+					</textElement>
+					<text><![CDATA[CPF]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="328" y="50" width="120" height="20" uuid="81c4c150-dc7d-412a-872d-f41f91b7dd56"/>
+					<textElement>
+						<font size="11" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Email]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="448" y="50" width="107" height="20" uuid="5db8df45-4f75-446a-bf65-237c6239b419"/>
+					<textElement>
+						<font size="11" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Telefone]]></text>
+				</staticText>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="22"/>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="44" splitType="Stretch">
+			<staticText>
+				<reportElement x="11" y="0" width="555" height="22" uuid="cf1598ac-e948-4103-94dd-4efe1ff2dd6a"/>
+				<textElement textAlignment="Center">
+					<font size="16" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Relatório de Clientes por Cidade]]></text>
+			</staticText>
+			<line>
+				<reportElement x="0" y="25" width="566" height="1" uuid="b9d7190f-5143-41f9-8f5a-7c24a328a580"/>
+			</line>
+		</band>
+	</title>
+	<detail>
+		<band height="28" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="68" height="20" uuid="b374ebe3-0368-4679-9b89-2e44e7e88c5c"/>
+				<textFieldExpression><![CDATA[$F{cliente_id}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="68" y="0" width="160" height="20" uuid="cb0d9179-dddc-456c-9b3a-b2de5105d7ec"/>
+				<textFieldExpression><![CDATA[$F{cliente_nome}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="228" y="0" width="100" height="20" uuid="a999c9a2-1060-455a-9dfb-94b2ad0f4364"/>
+				<textFieldExpression><![CDATA[$F{cliente_cpf}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="328" y="0" width="120" height="20" uuid="6413148e-6574-4995-8c16-c16c965b16ab"/>
+				<textFieldExpression><![CDATA[$F{cliente_email}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="448" y="0" width="107" height="20" uuid="f70d6fad-92c7-42a9-a5ce-d46d8c729872"/>
+				<textFieldExpression><![CDATA[$F{cliente_telefone}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="54" splitType="Stretch">
+			<textField evaluationTime="Report">
+				<reportElement x="294" y="34" width="40" height="20" uuid="b946e58e-f843-4ef7-b00d-8af6f031f60c"/>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy h.mm a">
+				<reportElement x="455" y="34" width="100" height="20" uuid="39ff9c5b-66f7-46fd-ab28-97f2f6d650c3"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="214" y="34" width="80" height="20" uuid="f15a36fd-280b-4f67-ba0b-bbba8c725f78"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA["Página "+$V{PAGE_NUMBER}+" de"]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+</jasperReport>

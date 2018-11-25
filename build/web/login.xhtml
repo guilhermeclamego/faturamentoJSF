@@ -1,0 +1,29 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+   
+    <h:head>
+    </h:head>
+   
+    <h:body>
+        <p:growl id="messages" 
+                         autoUpdate="true" 
+                         showDetail="true"
+                         showSummary="false" />        
+        <div align="center">
+            <h:form id="loginForm">
+                <p:growl id="msg" showDetail="true" life="3000" />
+                <p:panel header="Acesso ao Sistema" style="width: 50%; font-size: 20px;">
+                    <h:panelGrid id="loginPanel" columns="2" style="width: 70%;">
+                        <h:outputText value="Login"/>
+                        <p:inputText id="username" value="#{login.user}" ></p:inputText>
+                        <h:outputText value="Senha" />
+                        <p:password id="password" value="#{login.pwd}" feedback="false"></p:password>
+                        <p:spacer></p:spacer>
+                        <p:commandButton value="Logar" action="#{login.validateUsernamePassword()}"></p:commandButton>
+                    </h:panelGrid>
+                </p:panel>
+            </h:form>
+        </div>
+    </h:body>
+</html>

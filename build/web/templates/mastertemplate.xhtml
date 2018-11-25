@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+
+    <f:view encoding="UTF-8">
+        <h:head>
+            <title>Faturamento</title>
+            <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+            <style type="text/css">
+                .ui-widget, .ui-widget .ui-widget {
+                    font-size: 90%;
+                }
+
+                .ui-inputfield, .ui-inputtext, .ui-selectonemenu {
+                    width: 98% !important;
+                }
+
+            </style>
+        </h:head>
+        <h:body>
+
+            <h:form>
+                <p:growl id="messages" 
+                         autoUpdate="true" 
+                         showDetail="true"
+                         showSummary="false" />
+
+                <p:menubar autoDisplay="false">
+                    <p:submenu label="Cadastro">
+                        <p:menuitem value="Categoria" 
+                                    url="/cadastros/categoria.jsf"/>
+                        <p:menuitem value="Produto" 
+                                    url="/cadastros/produto.jsf"/>
+                        <p:menuitem value="Cliente" 
+                                    url="/cadastros/cliente.jsf"/>
+                        <p:menuitem value="Funcionário" 
+                                    url="/cadastros/funcionario.jsf"/>
+                    </p:submenu>
+                                        
+                    <p:submenu label="Faturamento">
+                        <p:menuitem value="Pedidos do Cliente"
+                                    url="/faturamento/pedidos.jsf"/>
+                    </p:submenu>
+                    <p:submenu label="Gráficos">
+                        <p:menuitem value="Gráficos"
+                                     url="/graficos/chart.jsf"/>
+                    </p:submenu> 
+                    <p:submenu label="Relatórios">
+                        <p:menuitem value="Relatório de Clientes"
+                                    url="">                                       
+                        </p:menuitem>
+                        <p:menuitem value="Relatório de Produtos"
+                                    url="">                                       
+                        </p:menuitem>
+                        <p:menuitem value="Relatório de Funcionários"
+                                    url="">                                       
+                        </p:menuitem>                        
+                        <p:menuitem value="Relatório de Clientes por Cidade"
+                                    url="">                                       
+                        </p:menuitem>
+                        <p:menuitem value="Relatório de Produtos por Categoria"
+                                    url="">                                       
+                        </p:menuitem>                        
+                        <p:menuitem value="Relatório de Pedidos por Cliente"
+                                    url="">                                       
+                        </p:menuitem>                        
+                    </p:submenu>
+                    
+                    <p:submenu label="Auditoria">
+                        <p:menuitem value="Histórico Auditoria"
+                                    url="/auditoria/auditoria.jsf">                                     
+                        </p:menuitem>
+                    </p:submenu>
+                    
+                    <f:facet name="options">
+                        <p:commandButton value="Sair" action="#{login.logout()}" />
+                        <p:commandButton icon="ui-icon-gear" onclick="PF('dialog').show()" />
+                    </f:facet>
+                   
+                </p:menubar>
+            </h:form>
+
+            <br />
+            <br />
+
+            <p:dialog header="Preferências" widgetVar="dialog" modal="true" width="40%">
+                <h:form>
+                    <h:outputText value="Tema do Sistema:"></h:outputText>
+                    <p:themeSwitcher effectSpeed="normal" effect="fold" style="width:165px" id="defaultSwitcher" value="#{themeSwitcherBean.theme}">
+                       <f:selectItem itemLabel="Cambiar Tema" itemValue="" />
+                       <f:selectItems value="#{themeSwitcherBean.themes}" />
+                       <p:ajax global="false" listener="#{themeSwitcherBean.saveTheme}" />
+                    </p:themeSwitcher>                   
+                    <p:commandButton id="imageBtn" value="Alterar Senha" type="button"/>
+                        <p:overlayPanel id="imagePanel" for="imageBtn" hideEffect="fade" style="width:20%">
+                            <h:outputText value="Senha Atual:"></h:outputText>
+                            <p:inputText id="senhaAtual" />
+                            <h:outputText value="Nova Senha:"></h:outputText>
+                            <p:inputText id="novaSenha" />
+                            <h:outputText value="Confirma:"></h:outputText>
+                            <p:inputText id="confirma" />
+                            <p:commandButton value="Salvar" type="button"/>
+                        </p:overlayPanel>
+                </h:form>
+            </p:dialog> 
+
+            <ui:insert name="corpo" />
+        </h:body>
+    </f:view>
+</html>

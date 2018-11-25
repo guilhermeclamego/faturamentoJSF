@@ -1,0 +1,43 @@
+<ui:composition template="/templates/mastertemplate.xhtml" 
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui">
+
+    <ui:define name="corpo">
+        <p:panel style="margin: 0 auto; width: 90%"
+                 header="Auditoria">
+
+            <h:form>
+                <p:dataTable value="#{auditoriaBean.auditorias}" 
+                             id="listaAuditorias"
+                             var="a" 
+                             emptyMessage="Sem Auditoria" 
+                >
+
+                    <p:column filterBy="#{car.id}" headerText="Id" filterMatchMode="contains">
+                        <h:outputText value="#{a.auditoriaId}" />
+                    </p:column>
+
+                    <p:column filterBy="#{car.price}" headerText="Operação" filterFunction="#{dtFilterView.filterByPrice}">
+                        <h:outputText value="#{a.operacao}" />
+                    </p:column>
+
+                    <p:column filterBy="#{car.price}" headerText="Usuário" filterFunction="#{dtFilterView.filterByPrice}">
+                        <h:outputText value="#{a.usuario}" />
+                    </p:column>
+
+                    <p:column filterBy="#{car.price}" headerText="Tabela" filterFunction="#{dtFilterView.filterByPrice}">
+                        <h:outputText value="#{a.tabela}" />
+                    </p:column>
+                    
+                    <p:column filterBy="#{car.price}" headerText="Dados"  filterFunction="#{dtFilterView.filterByPrice}">
+                        <h:outputText value="#{a.dados}" />
+                    </p:column>
+                </p:dataTable>
+            </h:form>
+
+        </p:panel >
+
+    </ui:define>
+</ui:composition>

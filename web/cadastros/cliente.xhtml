@@ -1,0 +1,133 @@
+<ui:composition template="/templates/mastertemplate.xhtml" 
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui">
+
+    <ui:define name="corpo">
+        <p:panel style="margin: 0 auto; width: 90%"
+                 header="Cadastro de Cliente">
+            <h:form>
+                <p:outputLabel value="Nome" 
+                               for="nome"/>
+                <br />
+                <p:inputText id="nome" 
+                             value="#{clienteBean.cliente.nome}"
+                             required="true" requiredMessage="Preencha o campo Nome!"/>
+
+                <p:outputLabel value="CPF" 
+                               for="cpf"/>
+                <br />
+                <p:inputText id="cpf" 
+                             value="#{clienteBean.cliente.cpf}"
+                             required="true" requiredMessage="Preencha o campo CPF!"/>
+
+                <p:outputLabel value="Email" 
+                               for="email"/>
+                <br />
+                <p:inputText id="email" 
+                             value="#{clienteBean.cliente.email}"/>
+
+                <p:outputLabel value="Telefone" 
+                               for="fone"/>
+                <br />
+                <p:inputText id="fone" 
+                             value="#{clienteBean.cliente.telefone}"/>
+
+                <br/><br/>
+                <p:separator />
+                <p:outputLabel value="Endereço"/>
+                <p:separator />               
+
+                <p:outputLabel value="Municipio" 
+                               for="municipio"/>
+                <br />                
+                <p:selectOneMenu  value="#{clienteBean.cliente.municipio}"
+                                  id="municipio" filter="true" filterMatchMode="contains"
+                                  required="true" requiredMessage="Selecione um Município!">
+                    <f:selectItem itemLabel="Selecione um municipio" noSelectionOption="true" />
+                    <f:selectItems value="#{clienteBean.municipios}"
+                                   var="mun"
+                                   itemLabel="#{mun.descricao}"
+                                   itemValue="#{mun}"/>
+                </p:selectOneMenu>
+
+                <p:outputLabel value="Bairro" 
+                               for="bairro"/>
+                <br />
+                <p:inputText id="bairro" 
+                             value="#{clienteBean.cliente.bairro}"/>
+
+                <p:outputLabel value="Rua" 
+                               for="rua"/>
+                <br />
+                <p:inputText id="rua" 
+                             value="#{clienteBean.cliente.rua}"/>
+
+                <p:outputLabel value="Número" 
+                               for="numero"/>
+                <br />
+                <p:inputText id="numero" 
+                             value="#{clienteBean.cliente.numero}"/>
+
+                <p:separator />
+                <p:commandButton value="Salvar" 
+                                 actionListener="#{clienteBean.salvar()}"
+                                 update="@all"/>               
+            </h:form>
+        </p:panel> 
+        <br />
+        <p:separator />
+        <br />
+        <p:panel style="margin: 0 auto; width: 90%; align-self: center"
+                 header="Todas os Clientes">
+            <p:dataTable value="#{clienteBean.clientes}" 
+                         id="listaClientes" 
+                         var="c"
+                         emptyMessage="Sem Clientes"
+                         rows="5"
+                         paginator="true"
+                         paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                         rowsPerPageTemplate="5,10,15">                         
+
+                <p:column headerText="Id">
+                    <h:outputText value="#{c.id}"/>
+                </p:column>
+
+                <p:column headerText="Nome">
+                    <h:outputText value="#{c.nome}"/>
+                </p:column>                   
+
+                <p:column headerText="CPF">
+                    <h:outputText value="#{c.cpf}"/>
+                </p:column>                  
+
+                <p:column headerText="Email">
+                    <h:outputText value="#{c.email}"/>
+                </p:column>                  
+
+                <p:column headerText="Municipio">
+                    <h:outputText value="#{c.municipio.descricao}"/>
+                </p:column>                  
+
+                <p:column headerText="Ações" style="width: 80px; text-align: center;">
+                    <h:form>
+                        <p:commandButton icon="ui-icon-pencil"
+                                         title="Editar" ajax="false"
+                                         actionListener="#{clienteBean.alterar(c)}"/> 
+                        <p:commandButton icon="ui-icon-trash"
+                                         title="Excluir"
+                                         update=":listaClientes"
+                                         actionListener="#{clienteBean.excluir(c)}">
+                        <p:confirm header="Excluir Registro" message="Confirma excluir registro?" icon="ui-icon-alert" />
+                        </p:commandButton>
+                        <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                            <p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                            <p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+                        </p:confirmDialog>                         
+                    </h:form>                        
+                </p:column>                   
+            </p:dataTable> 
+        </p:panel >
+    </ui:define>
+</ui:composition>

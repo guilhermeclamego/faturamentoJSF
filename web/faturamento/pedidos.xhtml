@@ -1,0 +1,59 @@
+<ui:composition template="/templates/mastertemplate.xhtml" 
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui">
+
+    <ui:define name="corpo">
+        <p:panel style="margin: 0 auto; width: 95%"
+                 header="Pedidos Cliente">
+            <h:form>
+                <p:outputLabel value="Cliente " 
+                               for="cliente"/>
+                <br />                
+                <p:selectOneMenu  value="#{pedidoClienteBean.pedidoCliente.cliente}"
+                                  id="cliente" filter="true" filterMatchMode="contains"
+                                  required="true" requiredMessage="Selecione um Cliente!">
+                    <f:selectItem itemLabel="Selecione um cliente" noSelectionOption="true" />
+                    <f:selectItems value="#{clienteBean.clientes}"
+                                   var="clientes"
+                                   itemLabel="#{clientes.nome}"
+                                   itemValue="#{clientes}"/>
+                </p:selectOneMenu>
+                
+                <p:outputLabel value="Produto " 
+                               for="produto"/>
+                <br />                
+                <p:selectOneMenu  value="#{pedidoClienteBean.pedidoCliente.produto}"
+                                  id="produto" filter="true" filterMatchMode="contains"
+                                  required="true" requiredMessage="Selecione um Produto!">
+                    <f:selectItem itemLabel="Selecione um produto" noSelectionOption="true" />
+                    <f:selectItems value="#{produtoBean.produtos}"
+                                   var="produtos"
+                                   itemLabel="#{produtos.descricao}"
+                                   itemValue="#{produtos}"/>
+                </p:selectOneMenu>
+                <br />
+                <p:outputLabel value="Quantidade" 
+                               for="quantidade"/>
+                <br />
+                <p:inputText id="quantidade" 
+                             value="#{pedidoClienteBean.pedidoCliente.quantidade}"
+                             required="true" requiredMessage="Preencha o campo Quantidade!"/>
+                <br />
+                <p:outputLabel value="Preço Venda" 
+                               for="precoVenda"/>
+                <br />
+                <p:inputText id="precoVenda" 
+                             value="#{pedidoClienteBean.pedidoCliente.precoVenda}"
+                             required="true" requiredMessage="Preencha o campo Preço Venda!"/>               
+                    
+                <p:separator />
+
+                <p:commandButton value="Salvar" 
+                                 actionListener="#{pedidoClienteBean.salvar()}"
+                                 update="@all"/>               
+            </h:form>
+        </p:panel>        
+    </ui:define>
+</ui:composition>

@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Relatório de Pedidos" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="3ebde5ce-a739-4662-ab9b-7ccf300ed3a8">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="PAR_PEDIDO" class="java.lang.Integer"/>
+	<queryString>
+		<![CDATA[SELECT
+     pedidocliente."clienteid" AS pedidocliente_clienteid,
+     pedidocliente."produtoid" AS pedidocliente_produtoid,
+     pedidocliente."status" AS pedidocliente_status,
+     produto."descricao" AS produto_descricao,
+     cliente."nome" AS cliente_nome
+FROM
+     "public"."produto" produto INNER JOIN "public"."pedidocliente" pedidocliente ON produto."id" = pedidocliente."produtoid"
+     INNER JOIN "public"."cliente" cliente ON pedidocliente."clienteid" = cliente."id"
+WHERE clienteid = $P{PAR_PEDIDO}]]>
+	</queryString>
+	<field name="pedidocliente_clienteid" class="java.lang.Integer"/>
+	<field name="pedidocliente_produtoid" class="java.lang.Integer"/>
+	<field name="pedidocliente_status" class="java.lang.Integer"/>
+	<field name="produto_descricao" class="java.lang.String"/>
+	<field name="cliente_nome" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<pageHeader>
+		<band height="21" splitType="Stretch">
+			<staticText>
+				<reportElement x="-1" y="0" width="57" height="20" uuid="6f004163-6a41-4bc9-bedb-e0276b300458"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Cli. ID]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="56" y="0" width="140" height="20" uuid="a1fcb694-d77d-4dbb-a152-6287a7ebfe23"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Cliente ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="196" y="0" width="56" height="20" uuid="1fdefbe2-f0ed-4248-89a7-e3aef818a187"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Prod. ID]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="252" y="0" width="234" height="20" uuid="ed47bade-562a-4921-b957-d6d0d09582ad"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Descrição]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="486" y="0" width="69" height="20" uuid="d0113e10-37ef-4e9e-8ee6-d37fb09555ce"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Status Pedido]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<detail>
+		<band height="27" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="56" height="20" uuid="11d72d1b-74cb-4475-8249-e079352dbdc6"/>
+				<textFieldExpression><![CDATA[$F{pedidocliente_clienteid}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="56" y="0" width="140" height="20" uuid="fe139dfc-5674-4106-b7b9-3d70139485b0"/>
+				<textFieldExpression><![CDATA[$F{cliente_nome}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="196" y="0" width="56" height="20" uuid="f9fba622-1e74-4a9f-9587-1d4d20871ae7"/>
+				<textFieldExpression><![CDATA[$F{pedidocliente_produtoid}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="252" y="0" width="234" height="20" uuid="5b9a8903-df34-4ad2-b43c-d4ab5d7b896f"/>
+				<textFieldExpression><![CDATA[$F{produto_descricao}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="486" y="0" width="69" height="20" uuid="1dd5087f-e0ce-43e2-af31-e2e6480bdaf5"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{pedidocliente_status}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="50"/>
+	</pageFooter>
+</jasperReport>
