@@ -8,7 +8,7 @@ import java.util.Objects;
  */
 public class Auditoria {
     
-    private int auditoriaId;
+    private int id;
     private String operacao;
     private String data;
     private String usuario;
@@ -19,8 +19,8 @@ public class Auditoria {
         //construtor vazio
     }
 
-    public Auditoria(int auditoriaId, String operacao, String data, String usuario, String tabela, String dados) {
-        this.auditoriaId = auditoriaId;
+    public Auditoria(int id, String operacao, String data, String usuario, String tabela, String dados) {
+        this.id = id;
         this.operacao = operacao;
         this.data = data;
         this.usuario = usuario;
@@ -28,12 +28,12 @@ public class Auditoria {
         this.dados = dados;
     }
     
-    public int getAuditoriaId() {
-        return auditoriaId;
+    public int getId() {
+        return id;
     }
 
-    public void setAuditoriaId(int auditoriaId) {
-        this.auditoriaId = auditoriaId;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getOperacao() {
@@ -79,7 +79,7 @@ public class Auditoria {
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 97 * hash + this.auditoriaId;
+        hash = 97 * hash + this.id;
         hash = 97 * hash + Objects.hashCode(this.operacao);
         hash = 97 * hash + Objects.hashCode(this.data);
         hash = 97 * hash + Objects.hashCode(this.usuario);
@@ -100,7 +100,7 @@ public class Auditoria {
             return false;
         }
         final Auditoria other = (Auditoria) obj;
-        if (this.auditoriaId != other.auditoriaId) {
+        if (this.id != other.id) {
             return false;
         }
         if (!Objects.equals(this.operacao, other.operacao)) {

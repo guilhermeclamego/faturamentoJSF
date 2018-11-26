@@ -18,34 +18,6 @@ public class AuditoriaJdbc implements AuditoriaDao {
     private Connection conexao;
     private PreparedStatement stmt;
 
-    @Override
-    public Object getAuditoria(int auditoriaId) {
-        try {
-            conexao = JdbcDaoFactory.abreConexao();
-            stmt = conexao.prepareStatement("Select * from auditoria where id = ?");
-            stmt.setInt(1, auditoriaId);
-            ResultSet rs = stmt.executeQuery();
-            rs.next();
-
-            Auditoria oAuditoria = new Auditoria();
-            oAuditoria.setAuditoriaId(rs.getInt("auditoriaid"));
-            oAuditoria.setOperacao(rs.getString("operacao"));
-            oAuditoria.setData(rs.getString("data"));
-            oAuditoria.setUsuario(rs.getString("usuario"));
-            oAuditoria.setTabela(rs.getString("tabela"));
-            oAuditoria.setDados(rs.getString(("dados")));           
-            return oAuditoria;
-        } catch (Exception e) {
-            return null;
-        } finally {
-            try {
-                stmt.close();
-                conexao = JdbcDaoFactory.fechaConexao(); //JdbcDaoFactory está com o método para fechar conexao...
-            } catch (SQLException ex) {
-
-            }
-        }
-    }
     
     @Override
     public List<Auditoria> buscarTodos() {
@@ -64,13 +36,13 @@ public class AuditoriaJdbc implements AuditoriaDao {
                     + "  id");
 
             ResultSet rs = stmt.executeQuery();
-
+            
             ArrayList<Auditoria> todos = new ArrayList<Auditoria>();
-
+             
             while (rs.next()) {
                 Auditoria oAuditoria = new Auditoria();
 
-                oAuditoria.setAuditoriaId(rs.getInt("auditoriaid"));
+                oAuditoria.setId(rs.getInt("id"));
                 oAuditoria.setOperacao(rs.getString("operacao"));
                 oAuditoria.setData(rs.getString("data"));
                 oAuditoria.setUsuario(rs.getString("usuario"));
@@ -91,6 +63,37 @@ public class AuditoriaJdbc implements AuditoriaDao {
             }
         }
     }
+    
+    @Override
+    public Object getAuditoria(int auditoriaId) {
+        try {
+            conexao = JdbcDaoFactory.abreConexao();
+            stmt = conexao.prepareStatement("Select * from auditoria where id = ?");
+            stmt.setInt(1, auditoriaId);
+            ResultSet rs = stmt.executeQuery();
+            rs.next();
+
+            Auditoria oAuditoria = new Auditoria();
+            oAuditoria.setId(rs.getInt("id"));
+            oAuditoria.setOperacao(rs.getString("operacao"));
+            oAuditoria.setData(rs.getString("data"));
+            oAuditoria.setUsuario(rs.getString("usuario"));
+            oAuditoria.setTabela(rs.getString("tabela"));
+            oAuditoria.setDados(rs.getString(("dados")));           
+            return oAuditoria;
+        } catch (Exception e) {
+            return null;
+        } finally {
+            try {
+                stmt.close();
+                conexao = JdbcDaoFactory.fechaConexao(); //JdbcDaoFactory está com o método para fechar conexao...
+            } catch (SQLException ex) {
+
+            }
+        }
+    }
+    
+  
 
     @Override
     public boolean insert(Object oObjeto) {

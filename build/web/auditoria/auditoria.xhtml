@@ -5,38 +5,42 @@
                 xmlns:p="http://primefaces.org/ui">
 
     <ui:define name="corpo">
-        <p:panel style="margin: 0 auto; width: 90%"
-                 header="Auditoria">
+        <p:panel style="margin: 0 auto; width: 90%; align-self: center"
+                 header="Histórico de Auditorias">
+            <p:dataTable value="#{auditoriaBean.auditorias}" 
+                         id="listaAuditorias" 
+                         var="p"
+                         emptyMessage="Sem Auditoria"
+                         rows="5"
+                         paginator="true"
+                         paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                         rowsPerPageTemplate="5,10,15">                         
 
-            <h:form>
-                <p:dataTable value="#{auditoriaBean.auditorias}" 
-                             id="listaAuditorias"
-                             var="a" 
-                             emptyMessage="Sem Auditoria" 
-                >
+                <p:column headerText="Id">
+                    <h:outputText value="#{p.id}"/>
+                </p:column>
 
-                    <p:column filterBy="#{car.id}" headerText="Id" filterMatchMode="contains">
-                        <h:outputText value="#{a.auditoriaId}" />
-                    </p:column>
+                <p:column headerText="Operação">
+                    <h:outputText value="#{p.operacao}"/>
+                </p:column>                   
 
-                    <p:column filterBy="#{car.price}" headerText="Operação" filterFunction="#{dtFilterView.filterByPrice}">
-                        <h:outputText value="#{a.operacao}" />
-                    </p:column>
+                <p:column headerText="Data">
+                    <h:outputText value="#{p.data}"/>
+                </p:column>                  
 
-                    <p:column filterBy="#{car.price}" headerText="Usuário" filterFunction="#{dtFilterView.filterByPrice}">
-                        <h:outputText value="#{a.usuario}" />
-                    </p:column>
+                <p:column headerText="Usuário">
+                    <h:outputText value="Guiherme"/>
+                </p:column>                  
 
-                    <p:column filterBy="#{car.price}" headerText="Tabela" filterFunction="#{dtFilterView.filterByPrice}">
-                        <h:outputText value="#{a.tabela}" />
-                    </p:column>
-                    
-                    <p:column filterBy="#{car.price}" headerText="Dados"  filterFunction="#{dtFilterView.filterByPrice}">
-                        <h:outputText value="#{a.dados}" />
-                    </p:column>
-                </p:dataTable>
-            </h:form>
+                <p:column headerText="Tabela">
+                    <h:outputText value="#{p.tabela}"/>
+                </p:column>  
 
+                <p:column headerText="Dados">
+                    <h:outputText value="#{p.dados}"/>
+                </p:column>                  
+                                 
+            </p:dataTable> 
         </p:panel >
 
     </ui:define>

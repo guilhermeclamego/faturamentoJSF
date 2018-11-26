@@ -9,7 +9,7 @@ import javax.faces.bean.ViewScoped;
 
 /**
  *
- * @author Carlos
+ * @author Guilherme
  */
 @ManagedBean(name = "usuarioBean")
 @ViewScoped

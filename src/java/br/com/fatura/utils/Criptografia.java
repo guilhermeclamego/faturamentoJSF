@@ -5,7 +5,7 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 /**
- * @author carlos
+ * @author Guilherme
  */
 public class Criptografia {
     
